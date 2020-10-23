@@ -1,0 +1,37 @@
+{% extends 'site/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block extra %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" rel="stylesheet"/>
+
+{% endblock %}
+{% block title_extension %} Registration {% endblock %}
+{% block maincontent %}
+    <section style="min-height: 100vh;color: white;">
+        <div id="cover-caption">
+            <div class="container">
+                <div class="row text-black text-left">
+                    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+                        <div class="px-2" style="   background-color: rgba(0,122,0,0.99);border-radius: 6px;
+">
+                            <form method="post"
+                                  action="{% url 'accounts:signup' %}">
+                                <img src="https://img.icons8.com/material-sharp/96/000000/user-male-circle.png"/><br>
+
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ next }}"/>
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-success">Register</button>
+                                <a href="{% url 'accounts:login' %}" class="btn btn-warning">Log in</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block footer %}{% endblock %}
