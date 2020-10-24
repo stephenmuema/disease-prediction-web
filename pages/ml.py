@@ -5,18 +5,20 @@ import math
 from sklearn.preprocessing import MinMaxScaler
 
 from tensorflow.keras.models import load_model
+
+
 class ML:
 
     def __init__(self):
         pass
+
     def generate_csv(self):
         # Code to Rearrange and sort data to desired location and disease
         # The code also counts the disease cases
         # At the end it creates a new csv file containing the new data
 
-
         # get all data from csv file
-        data = pd.read_csv('/content/Diseases.csv')
+        data = pd.read_csv('../pages/data/Diseases.csv')
         # set date as the index
         data = data.set_index('date')
         # get disease and location specific data
@@ -31,7 +33,7 @@ class ML:
         df
 
         # Exporting the new disease and location specific data to a csv
-        df.to_csv(r'location.csv', index=True, header=True)
+        df.to_csv(r'../pages/data/location.csv', index=True, header=True)
         df
 
     def generate_predictions(self):
@@ -96,4 +98,5 @@ class ML:
 
 
 ml = ML()
+ml.generate_csv()
 ml.generate_predictions()
