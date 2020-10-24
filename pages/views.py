@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -15,7 +16,7 @@ def contact(request):
 def about(request):
     return None
 
-
+@login_required
 def panel(request):
     if request.method == "POST":
         form = SearchForm(request.POST)
