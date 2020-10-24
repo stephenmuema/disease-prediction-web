@@ -8,9 +8,10 @@ from tensorflow.keras.models import load_model
 
 
 class ML:
-
-    def __init__(self):
-        pass
+    location=disease=None
+    def __init__(self,location,disease):
+        self.location=location
+        self.disease=disease
 
     def generate_csv(self):
         # Code to Rearrange and sort data to desired location and disease
@@ -22,8 +23,8 @@ class ML:
         # set date as the index
         data = data.set_index('date')
         # get disease and location specific data
-        disease = data[data.disease == 'malaria']
-        location = disease[disease.location == 'machakos']
+        disease = data[data.disease == self.disease]
+        location = disease[disease.location == self.location]
         location.head(10)
 
         # Count disease cases in the specific location
@@ -97,6 +98,6 @@ class ML:
         plt.savefig('../pages/data/{}disease.jpg'.format(121212))
 
 
-ml = ML()
+ml = ML(disease='cholera',location='nairobi')
 ml.generate_csv()
 ml.generate_predictions()
