@@ -21,20 +21,20 @@ def about(request):
 import io # use import io in Python 3x
 import base64
 
-def generate_image():
-    if request.method == 'POST':
-        x_coord = request.POST['x-coordinate']
-        y_coord = request.POST['y-coordinate']
-
-        # generate a matplotlib image, (I don't know how to do that)
-
-        sio = io.StringIO() # use io.StringIO() in Python 3x
-        pyplot.savefig(sio, format="PNG")
-
-        encoded_img = sio.getvalue().encode('Base64') # On Python 3x, use base64.b64encode(sio.getvalue())
-
-        return HttpResponse('<img src="data:image/png;base64,%s" />' %encoded_img)
-    else:
+# def generate_image():
+#     if request.method == 'POST':
+#         x_coord = request.POST['x-coordinate']
+#         y_coord = request.POST['y-coordinate']
+#
+#         # generate a matplotlib image, (I don't know how to do that)
+#
+#         sio = io.StringIO() # use io.StringIO() in Python 3x
+#         pyplot.savefig(sio, format="PNG")
+#
+#         encoded_img = sio.getvalue().encode('Base64') # On Python 3x, use base64.b64encode(sio.getvalue())
+#
+#         return HttpResponse('<img src="data:image/png;base64,%s" />' %encoded_img)
+#     else:
         # Do something ...
 @login_required
 def panel(request):
