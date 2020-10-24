@@ -94,9 +94,9 @@ class ML:
         valid['predictions'] = predictions
         # visualize the data
         plt.figure(figsize=(16, 8))
-        plt.title('Model')
+        plt.title('{} prediction for {}'.upper().format(self.disease.upper(),self.location.upper()))
         plt.xlabel('date')
-        plt.ylabel('Disease cases')
+        plt.ylabel('{} cases'.format(self.disease))
         plt.plot(train['Number of cases'])
         plt.plot(valid[['Number of cases', 'predictions']])
         # plt.show()
