@@ -9,10 +9,10 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import load_model
 
 from djangoHealthAnalytics.settings import BASE_DIR
-
+from pathlib import Path
 
 class ML:
-
+    BASE_DIR = Path(__file__).resolve().parent.parent
     location = disease = None
 
     def __init__(self, location, disease):
@@ -24,7 +24,7 @@ class ML:
         # The code also counts the disease cases
         # At the end it creates a new csv file containing the new data
         # get all data from csv file
-        data = pd.read_csv('{}/data/Diseases.csv'.format(BASE_DIR))
+        data = pd.read_csv('{}/data/Diseases.csv'.format(self.BASE_DIR))
         # set date as the index
         data = data.set_index('date')
         # get disease and location specific data
@@ -41,14 +41,14 @@ class ML:
         df
 
         # Exporting the new disease and location specific data to a csv
-        df.to_csv(r'{}/data/location.csv'.format(BASE_DIR), index=True, header=True)
+        df.to_csv(r'{}/data/location.csv'.format(self.BASE_DIR), index=True, header=True)
         df
 
     def generate_predictions(self, user):
 
         plt.style.use('fivethirtyeight')
         # convert the dataframe to nparray
-        df = pd.read_csv('{}/data/location.csv'.format(BASE_DIR))
+        df = pd.read_csv('{}/data/location.csv'.format(self.BASE_DIR))
         df = df.tail(100)
         data = df.filter(['Number of cases'])
         dataset = data.values
@@ -70,7 +70,7 @@ class ML:
         for i in range(60, len(train_data)):
             x_train.append(train_data[i - 60:i, 0])
             y_train.append(train_data[i, 0])
-        model = load_model('{}/data/model.h5'.format(BASE_DIR))
+        model = load_model('{}/data/model.h5'.format(self.BASE_DIR))
 
         # Create the testing dataset
         test_data = scaled_data[training_data_len - 60:, :]
@@ -102,7 +102,7 @@ class ML:
         plt.plot(train['Number of cases'])
         plt.plot(valid[['Number of cases', 'predictions']])
         # plt.show()
-        plt.savefig('{}/data/{}disease.jpg'.format(BASE_DIR, user))
+        plt.savefig('{}/data/{}disease.jpg'.format(self.BASE_DIR, user))
 
 
 #
