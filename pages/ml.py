@@ -113,17 +113,17 @@ class ML:
         plt.savefig(figure, format="png")
         content_file = ImageFile(figure)
         content_file = ContentFile(figure.getvalue())
-        user_obj=User.objects.get(email=user)
-        img_obj=Images.objects.get(user=user_obj)
-        if img_obj is not None:
+        user_obj = User.objects.get(email=user)
+        try:
+            img_obj = Images.objects.get(user=user_obj)
             img_obj.image.save("image_file.png", content_file)
             img_obj.save()
-        else:
+        except:
             plot_instance = Images(user=user_obj)
             plot_instance.image.save("image_file.png", content_file)
             plot_instance.save()
-        # plt.savefig('{}/data/{}disease.jpg'.format(self.BASE_DIR, user))
 
+        # plt.savefig('{}/data/{}disease.jpg'.format(self.BASE_DIR, user))
 
 #
 #

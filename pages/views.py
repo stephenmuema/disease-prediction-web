@@ -54,6 +54,6 @@ def panel(request):
     else:
         form = SearchForm()
     user=User.objects.get(pk=request.user.pk)
-    image=Images.objects.get(user=user)
+    image=Images.objects.filter(user=user)
 
     return render(request, 'site/panel.html', {'form': form,'file':image})

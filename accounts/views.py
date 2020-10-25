@@ -11,6 +11,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from accounts.forms import SignUpForm, ForgotPasswordForm, ProfileForm, ProfileAccountForm, NewPasswordForm
 from accounts.models import User
 from djangoHealthAnalytics.extras import split_domain_ports
+from pages.models import Images
 from .tokens import account_activation_token
 
 
@@ -105,7 +106,9 @@ def resettoken(request, uidb64, token):
 
 @login_required(login_url='accounts:login')
 def logout_view(request):
+    Images.objects.filter(user=User.objects.get(pk=request.user.pk)).delete()
     logout(request)
+
     return redirect('accounts:login')
 
 
