@@ -1,6 +1,9 @@
+import io
 from time import sleep
 
 import pandas as pd
+from django.core.files.base import ContentFile
+from django.core.files.images import ImageFile
 from matplotlib import pyplot as plt
 import numpy as np
 import math
@@ -8,8 +11,12 @@ from sklearn.preprocessing import MinMaxScaler
 
 from tensorflow.keras.models import load_model
 
+from accounts.models import User
 from djangoHealthAnalytics.settings import BASE_DIR
 from pathlib import Path
+
+from pages.models import Images
+
 
 class ML:
     BASE_DIR = Path(__file__).resolve().parent.parent
@@ -102,7 +109,20 @@ class ML:
         plt.plot(train['Number of cases'])
         plt.plot(valid[['Number of cases', 'predictions']])
         # plt.show()
-        plt.savefig('{}/data/{}disease.jpg'.format(self.BASE_DIR, user))
+        figure = io.BytesIO()
+        plt.savefig(figure, format="png")
+        content_file = ImageFile(figure)
+        content_file = ContentFile(figure.getvalue())
+        user_obj=User.objects.get(email=user)
+        img_obj=Images.objects.get(user=user_obj)
+        if img_obj is not None:
+            img_obj.image.save("image_file.png", content_file)
+            img_obj.save()
+        else:
+            plot_instance = Images(user=user_obj)
+            plot_instance.image.save("image_file.png", content_file)
+            plot_instance.save()
+        # plt.savefig('{}/data/{}disease.jpg'.format(self.BASE_DIR, user))
 
 
 #
@@ -110,4 +130,4 @@ class ML:
 # ml = ML(disease='cholera', location='machakos')
 # ml.generate_csv()
 # ml.generate_predictions('test')
-print(BASE_DIR)
+# print(BASE_DIR)

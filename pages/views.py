@@ -5,10 +5,11 @@ from django.shortcuts import render, redirect
 from accounts.models import User
 from pages.forms import SearchForm
 from pages.ml import ML
+from pages.models import Images
 
 
 def index(request):
-    return redirect('accounts:login')
+    return redirect('pages:panel')
 
 
 def contact(request):
@@ -52,5 +53,7 @@ def panel(request):
             print("invalid form")
     else:
         form = SearchForm()
+    user=User.objects.get(pk=request.user.pk)
+    image=Images.objects.get(user=user)
 
-    return render(request, 'site/panel.html', {'form': form})
+    return render(request, 'site/panel.html', {'form': form,'file':image})

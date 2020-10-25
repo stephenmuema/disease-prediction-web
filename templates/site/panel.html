@@ -11,7 +11,7 @@
 {% block title_extension %} Panel {% endblock %}
 {% block maincontent %}
     <div class="container vh-100">
-        <div class="card ">
+        <div class="card vh-100">
             <div class="row m-4 align-items-center">
                 <form class="form-inline mb-lg-5 " action="{% url 'pages:panel' %}" method="post">
                     {% csrf_token %}
@@ -38,7 +38,14 @@
                     <button type="submit" class="btn btn-success btn-lg">Search</button>
                 </form>
             </div>
-            <img src="" class="img-fluid" alt="Responsive image">
+   <div class="row">
+                <div class="col-10 mb-5 center ftco-animate">
+                    {#    				<a href="{{product.image.url}}" class="image-popup">#}
+                    <img src="{{ file.image.url }}" class="img-fluid" alt="{{ file.user.email }}">
+                    {#                    </a>#}
+                </div>
+
+            </div>
         </div>
     </div>
     <script>
@@ -54,3 +61,4 @@
         });
     </script>
 {% endblock %}
+{% block footer %}{% endblock %}
