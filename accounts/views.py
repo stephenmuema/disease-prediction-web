@@ -230,6 +230,5 @@ def password_update(request):
             return render(request, 'site/accounts/forgot.html', {'form': form})
 
     else:
-        print("did not send email..just loaded the page")
         form = NewPasswordForm()
         return render(request, 'site/accounts/forgot.html', {'form': form})

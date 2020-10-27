@@ -23,26 +23,15 @@
                         {{ form.location }}
 
                     </div>
-                    {#    <div class="input-group date mr-5" id="datetimepicker1" data-target-input="nearest">#}
-                    {#  {{ form.start_date }}#}
-                    {#  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">#}
-                    {#    <div class="input-group-text"><i class="fa fa-calendar"></i></div>#}
-                    {#  </div>#}
-                    {#</div>#}
-                    {#  <div class="input-group date mr-5" id="datetimepicker2" data-target-input="nearest">#}
-                    {#  {{ form.end_date }}#}
-                    {#  <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">#}
-                    {#    <div class="input-group-text"><i class="fa fa-calendar"></i></div>#}
-                    {#  </div>#}
-                    {#</div>#}
+
                     <button type="submit" class="btn btn-success btn-lg">Search</button>
                 </form>
             </div>
    <div class="row">
                {% for x in file %}
-                    <div class="col-10 mb-5 center ftco-animate">
+                    <div class="col-6 mb-5 center ftco-animate">
                     {#    				<a href="{{product.image.url}}" class="image-popup">#}
-                    <img src="{{ x.image.url }}" class="img-fluid" alt="{{ x.user.email }}">
+                    <img src="{{ x.image.url }}" class="img-fluid center" alt="{{ x.user.email }}">
                     {#                    </a>#}
                 </div>
                {% endfor %}

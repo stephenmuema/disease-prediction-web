@@ -43,6 +43,12 @@ INSTALLED_APPS = [
     'pages',
     'django_apscheduler',
     'bootstrap_datepicker_plus',
+    'django_crontab',
+
+]
+
+CRONJOBS = [
+    ('*/1 * * * *', 'api.crons.my_scheduled_job')
 ]
 
 MIDDLEWARE = [
