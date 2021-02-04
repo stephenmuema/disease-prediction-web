@@ -40,12 +40,16 @@ class Files(models.Model):
 
         frame = pd.concat(li, axis=0, ignore_index=True)
         frame.rename(columns={'dateprescribed': 'date', 'diagnosis': 'disease'}, inplace=True)
+        frame['date'] = pd.to_datetime(frame['date']).dt.date
         frame.drop('prescription', inplace=True, axis=1)
         frame["disease"] = frame["disease"].str.lower()
-        frame = frame[['location', 'disease', 'gender', 'date']]
-        frame.replace({'male': 'm', 'female': 'f'})
-        # df.to_csv('my_csv.csv', mode='a', header=False)
+        frame["location"] = frame["location"].str.lower()
+        # frame["gender"] = frame["gender"].str.capitalize()
+        frame = frame[['date', 'location', 'disease', 'gender']]
+        frame = frame.set_index('date')
+        path = os.path.join(BASE_DIR, 'data', 'nigeria.csv')
+        data=pd.read_csv(path)
+        data=data.filter(['state','disease','gender','report_date'])
+        data=data.rename(columns={'state':'location','report_date':'date'})
+
         frame.to_csv('{}/data/Diseases.csv'.format(BASE_DIR), mode='a', header=False)
-
-
-

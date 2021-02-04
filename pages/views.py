@@ -43,9 +43,9 @@ def panel(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             user=User.objects.get(pk=request.user.pk)
-            disease = form.cleaned_data['disease_name'].lower()
+            disease = form.cleaned_data['disease_name']
 
-            location = form.cleaned_data['location'].lower()
+            location = form.cleaned_data['location']
             ml = ML(disease=disease, location=location)
             ml.generate_csv()
             ml.generate_predictions(user.email)
