@@ -15,6 +15,7 @@ django-appconf==1.0.4
 django-apscheduler==0.4.2
 django-bootstrap-datepicker-plus==3.0.5
 django-crispy-forms==1.9.2
+django-crontab==0.7.1
 django-cryptography==1.0
 django-tempus-dominus==5.1.2.13
 djangorestframework==3.11.1
@@ -34,6 +35,7 @@ Keras-Preprocessing==1.1.2
 kiwisolver==1.2.0
 Markdown==3.3.2
 matplotlib==3.3.2
+mysqlclient==2.0.3
 numpy==1.18.5
 oauthlib==3.1.0
 opt-einsum==3.3.0
