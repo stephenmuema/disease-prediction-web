@@ -130,6 +130,9 @@ class ML:
         plt.legend(loc='best', fontsize='xx-large')
         plt.xticks(fontsize=18)
         plt.yticks(fontsize=16)
+        plt.xlabel("Date",fontsize=20)
+        plt.ylabel("No. of cases",fontsize=20)
+        plt.title('{} cases in {}'.format(self.disease,self.location),fontsize=28)
         # plt.show()
         plt.savefig('disease.jpg')
 

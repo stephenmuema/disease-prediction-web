@@ -47,8 +47,7 @@ def signup(request):
             message = render_to_string('site/accounts/account_activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
+                'hash': user.hash,
             })
             send_mail(
                 subject,
@@ -68,20 +67,20 @@ def account_activation_sent(request):
     return render(request, 'site/accounts/account_activation_sent.html')
 
 
-def activate(request, uidb64, token):
+def activate(request, hash):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
+
+        user = User.objects.get(hash=hash)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
-    if user is not None and account_activation_token.check_token(user, token):
+    if user is not None:
         user.is_active = True
 
         user.email_confirmed = True
         user.save()
         login(request, user)
-        return redirect('accounts:panel')
+        return redirect('pages:panel')
     else:
         return render(request, 'site/accounts/account_activation_invalid.html')
 

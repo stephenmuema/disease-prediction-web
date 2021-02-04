@@ -8,12 +8,12 @@ from . import views
 app_name = 'accounts'
 urlpatterns = [
     url(r'^account_activation_sent/$', views.account_activation_sent, name='account_activation_sent'),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    url(r'^activate/(?P<hash>[0-9A-Za-z_\-]+)/$',
         views.activate, name='activate'),
     url(r'^profile/$', views.create_profile, name='createprofile'),
     url(r'^forgot/$', views.forgot_password, name='forgot'),
     url(r'^password_update/$', views.password_update, name='password_update'),
-    url(r'^password_reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    url(r'^password_reset/(?P<hash>[0-9A-Za-z_\-]+)/$',
         views.password_reset, name='password_reset'),
     # url(r'^edit-add_line/$', views.edit_profile, name='panel'),
     url(r'^login/$',
