@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 
+from api.views import mergeCSVs
+
 
 class Files(models.Model):
     name = models.CharField(max_length=500, null=False)
@@ -14,6 +16,10 @@ class Files(models.Model):
     class Meta:
         db_table = "Files"
         verbose_name_plural = "Files"
+
+    def save(self, *args, **kwargs):
+        super(Files, self).save(*args, **kwargs)
+        mergeCSVs()
 
 
 @receiver(post_delete, sender=Files)

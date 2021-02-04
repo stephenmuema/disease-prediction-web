@@ -1,4 +1,5 @@
 import io
+import os
 from time import sleep
 
 import pandas as pd
@@ -25,6 +26,7 @@ class ML:
     def __init__(self, location, disease):
         self.location = location
         self.disease = disease
+
 
     def generate_csv(self):
         # Code to Rearrange and sort data to desired location and disease
